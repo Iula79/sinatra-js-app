@@ -3,9 +3,8 @@ require 'sinatra'
 
 # missing do
 get '/' do
-  File.read('views/index.html')
-  # File.read(File.join('public', 'index.html'))
-  
+  File.read('public/index.html')
+  # File.read(File.join('public', 'index.html')) 
 end
 
 # get 'favorites' do
