@@ -9,6 +9,7 @@ window.onload = function () {
 function retrieveMovie() {
     var input = document.getElementById('movie').value
     axios.post('/movies', { params: input }).then(function (response) {
+        console.log(response)
         displayMovieList(response.data.Search);
     });
 }
