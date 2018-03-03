@@ -47,11 +47,11 @@ post '/favorites' do
   # 
   movie = { name: data["Title"], id: data["imdbID"] }
   file << movie
- 
   File.write('data.json',JSON.pretty_generate(file))
-  movie.to_json
+  
   response.header['Content-Type'] = 'application/json'
-  return data
+  response = movie.to_json
+  return response
   # else
  
   # end
