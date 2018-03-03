@@ -13,7 +13,9 @@ get '/' do
 end
 
 post '/movies' do
-  url = "http://www.omdbapi.com/?apikey=#{ENV['MY_MOVIE_KEY']}&s=hello"
+  body_par = request.body.read
+  data = JSON.parse(body_par)["params"]
+  url = "http://www.omdbapi.com/?apikey=#{ENV['MY_MOVIE_KEY']}&s=#{data}"
   uri = URI.parse(URI.encode(url))
   api_response = Net::HTTP.get(uri)
   return api_response
@@ -22,16 +24,27 @@ end
 #missing / in front of favorites
 get '/favorites' do
   response.header['Content-Type'] = 'application/json'
-  File.read('data.json')
+  if File.read('data.json')
+    return File.read('data.json')
+  end
 end
 
-# get '/favorites' do
-#   file = JSON.parse(File.read('data.json'))
-#   unless params[:name] && params[:oid]
-#     return 'Invalid Request'
-#   end
-#   movie = { name: params[:name], oid: params[:oid] }
-#   file << movie
-#   File.write('data.json',JSON.pretty_generate(file))
-#   movie.to_json
-# end
+# it's a post request... 
+post '/favorites' do
+  body_par = request.body.read
+  data = JSON.parse(body_par)
+  puts File.read('data.json').length 
+  file = JSON.parse(File.read('data.json'))
+  # unless params[:name] && params[:oid]
+  #   return 'Invalid Request'
+  #   #missing end 
+  # end
+  # 
+  movie = { name: data["Title"], id: data["imdbID"] }
+  file << movie
+  File.write('data.json',JSON.pretty_generate(file))
+  movie.to_json
+  # else
+ 
+  # end
+end
