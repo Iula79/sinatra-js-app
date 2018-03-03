@@ -57,7 +57,7 @@ function displayFavorites(obj) {
     ul.innerHTML = '';
     obj.data.forEach(function (movie) {
         listItem = document.createElement('li');
-        listItem.innerHTML = movie.Title;
+        listItem.innerHTML = movie.name;
         ul.appendChild(listItem);
     })
 }

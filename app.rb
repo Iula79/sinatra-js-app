@@ -35,6 +35,11 @@ post '/favorites' do
   data = JSON.parse(body_par)
   puts File.read('data.json').length 
   file = JSON.parse(File.read('data.json'))
+  for el in file
+    if data['imdbID'] == el['id']
+      return 'Invalid Request'
+    end 
+  end
   # unless params[:name] && params[:oid]
   #   return 'Invalid Request'
   #   #missing end 
@@ -42,8 +47,11 @@ post '/favorites' do
   # 
   movie = { name: data["Title"], id: data["imdbID"] }
   file << movie
+ 
   File.write('data.json',JSON.pretty_generate(file))
   movie.to_json
+  response.header['Content-Type'] = 'application/json'
+  return data
   # else
  
   # end
