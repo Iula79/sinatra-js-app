@@ -66,10 +66,13 @@ function displayDetail(obj) {
     var title = document.createElement('h1');
     var year = document.createElement('h2');
     var poster = document.createElement('img');
-
     title.innerHTML = obj.Title;
     year.innerHTML = obj.Year;
-    poster.setAttribute('src', obj.Poster);
+    if(obj.Poster== 'N/A'){
+        poster.setAttribute('src', './posterNA.jpg');
+    } else {
+        poster.setAttribute('src', obj.Poster);
+    }
     var div = document.getElementsByClassName('showDetail')[0];
     div.innerHTML = '';
     div.appendChild(title);
